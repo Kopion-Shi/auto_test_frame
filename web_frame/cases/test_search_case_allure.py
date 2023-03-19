@@ -43,12 +43,11 @@ class Test_case_search:
         try:
             self.index.search_contact(text=text)
             time.sleep(3)
-            assert '1' in self.index._get_title() # 添加断言
+            assert text[0] in self.index._get_title() # 添加断言
             LOGGER.info('EXECUTE TEST CASE SUCCESS')
         except Exception as e:
             LOGGER.error(f'EXECUTE TEST CASE failed, the reason is {e}')
             img_path = os.path.join(BASEDIR,f'report/images/{get_now_time()}.png')
-            print('---------',img_path)
             self.index._get_screenshot_as_file(img_path) # 失败截图
             allure.attach.file(source=img_path,name='失败截图',attachment_type=allure.attachment_type.PNG) # 将失败截图上传到测试报告中
             raise e
