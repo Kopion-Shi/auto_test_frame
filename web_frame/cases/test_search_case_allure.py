@@ -56,5 +56,5 @@ if __name__ == "__main__":
     json_path = os.path.join(BASEDIR, f'reports/allure_result/{get_now_time()}')  # 指定生成的json报告文件的路径
     html_path = os.path.join(BASEDIR, f'reports/allure_report/{get_now_time()}')  # 指定生成的html报告文件的路径
 
-    pytest.main(['-vs', 'test_search_case_allure.py', f'--alluredir={json_path}']) # 生成json报告
+    pytest.main(['-vs', '-n 4','test_search_case_allure.py', f'--alluredir={json_path}']) # 生成json报告
     os.system(f'allure generate {json_path} -o {html_path}') # 使用allure生成HTML报告
