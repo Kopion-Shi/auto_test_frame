@@ -53,4 +53,4 @@ class Test_case_search:
 
 
 if __name__ == "__main__":
-    pytest.main(["-vs", "test_search_case.py"])
+    pytest.main(["-vs",'-n 8' "test_search_case.py"])

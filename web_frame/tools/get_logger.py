@@ -8,7 +8,7 @@
 # @Comment :
 import logging  # 导入logging模块
 import logging.config
-
+import os
 ##解决window平台的编解码问题
 import _locale
 _locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
@@ -16,15 +16,23 @@ _locale._getdefaultlocale = (lambda *args: ['en_US', 'utf8'])
 
 class MyLogger:
     def __init__(self):
-        self.config_path = '../config/logging.conf'
+        self.config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'config/logging.conf')
 
     def get_logger_root(self, confName="root"):
         logging.config.fileConfig(self.config_path)
-        return logging.getLogger(confName)
+        logger = logging.getLogger(confName)
+        return logger
 
     def get_logger_web_test(self, confName="webtest"):
         logging.config.fileConfig(self.config_path)
-        return logging.getLogger(confName)
+        logger = logging.getLogger(confName)
+        return logger
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        logging.shutdown()
 
 
 if __name__ == "__main__":
